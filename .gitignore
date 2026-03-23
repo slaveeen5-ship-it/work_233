@@ -16,7 +16,7 @@ isim/
 *.prj
 *.xst
 *.ngr
-*.ngc
+#*.ngc
 *.ngd
 *.ncd
 *.xdl
@@ -109,6 +109,8 @@ webtalk*.log
 !ipcore_dir/
 ipcore_dir/**
 
+!ipcore_dir/**/*.edf
+!ipcore_dir/**/*.ngc
 !ipcore_dir/**/*.xco
 !ipcore_dir/**/*.v
 !ipcore_dir/**/*.vh
