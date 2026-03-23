@@ -67,27 +67,13 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="103"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="1"/>
     </file>
-    <file xil_pn:name="ipcore_dir/sys_mon.xise" xil_pn:type="FILE_COREGENISE">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="ipcore_dir/cs_ila_sysmon.xise" xil_pn:type="FILE_COREGENISE">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="ipcore_dir/Ibert_my.xise" xil_pn:type="FILE_COREGENISE">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="ipcore_dir/icon_ibert.xise" xil_pn:type="FILE_COREGENISE">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="ipcore_dir/icon_test.xise" xil_pn:type="FILE_COREGENISE">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="ipcore_dir/ila_test.xise" xil_pn:type="FILE_COREGENISE">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="ipcore_dir/test_vio.xise" xil_pn:type="FILE_COREGENISE">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
+    <file xil_pn:name="ipcore_dir/sys_mon.xise" xil_pn:type="FILE_ISE"/>
+    <file xil_pn:name="ipcore_dir/cs_ila_sysmon.xise" xil_pn:type="FILE_ISE"/>
+    <file xil_pn:name="ipcore_dir/Ibert_my.xise" xil_pn:type="FILE_ISE"/>
+    <file xil_pn:name="ipcore_dir/icon_ibert.xise" xil_pn:type="FILE_ISE"/>
+    <file xil_pn:name="ipcore_dir/icon_test.xise" xil_pn:type="FILE_ISE"/>
+    <file xil_pn:name="ipcore_dir/ila_test.xise" xil_pn:type="FILE_ISE"/>
+    <file xil_pn:name="ipcore_dir/test_vio.xise" xil_pn:type="FILE_ISE"/>
   </files>
 
   <properties>
