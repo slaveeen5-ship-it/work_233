@@ -1,0 +1,252 @@
+SYSTEM_JITTER = 0.05 ns;
+
+# Clock
+# Location Constraints
+# System clock 100 MHz;
+NET sys_clk_p               LOC = K13 | DIFF_TERM = TRUE | IOSTANDARD = LVDS_25; # SYS_CLK0_P
+NET sys_clk_n               LOC = K12 | DIFF_TERM = TRUE | IOSTANDARD = LVDS_25; # SYS_CLK0_N
+# # REF clock 200 MHz;
+# NET ref_clk_p               LOC = D11 | DIFF_TERM = TRUE | IOSTANDARD = LVDS_25; # CLK_REF0_P
+# NET ref_clk_n               LOC = E11 | DIFF_TERM = TRUE | IOSTANDARD = LVDS_25; # CLK_REF0_N
+# GTP-clock for RIO 153.6 MHz;
+NET mgt_clk_p               LOC = P6; # SI5338_SERDES_P
+NET mgt_clk_n               LOC = P5; # SI5338_SERDES_N
+# PCIe clock 125 MHz;
+NET pcie_clk_p              LOC = AB6; # SI5338_PCIE0_P
+NET pcie_clk_n              LOC = AB5; # SI5338_PCIE0_N
+
+# # External Timing Name Net
+NET "sys_clk_p"         TNM_NET = "TNM_ext_clk";
+NET "mgt_clk_p"         TNM_NET = "TNM_mgt_clk";
+# NET "ref_clk_p"         TNM_NET = "TNM_ref_clk";
+NET "pcie_clk_p"        TNM_NET = "TNM_pcie_clk";
+
+# Internal Timing Name Net
+# NET "clock_block_i/sys_clk_out"                                TNM_NET = "TNM_sys_clk";
+#NET "clock_block_i/math_clk_out"                               TNM_NET = "TNM_math_clk";
+# NET "qdr_block_i/mig_qdr_i/u_user_top/*/clk_rd*"            TNM_NET = "TNM_qdr_clk";
+# NET "*/gth_connect_fifo_0_inst/*/gt0_txoutclk_i"            TNM_NET = "TNM_mgt_clk_1";
+# NET "*/gth_connect_fifo_2_inst/*/gt0_txoutclk_i"            TNM_NET = "TNM_mgt_clk_2";
+# NET "*/make4Lanes.pcieCore/pcie_clocking_i/clk_125"         TNM_NET = "TNM_pcie_125";
+# NET "*/make4Lanes.pcieCore/TxOutClk_bufg"                   TNM_NET = "TNM_pcie_out";
+
+# Timing Specifications
+TIMESPEC "TS_ext_clk"   = PERIOD "TNM_ext_clk"   10.0 ns HIGH 50% PRIORITY 1;
+TIMESPEC "TS_mgt_clk"   = PERIOD "TNM_mgt_clk"   6.51 ns HIGH 50% PRIORITY 100;
+# TIMESPEC "TS_ref_clk"   = PERIOD "TNM_ref_clk"   5.0 ns  HIGH 50% PRIORITY 100;
+TIMESPEC "TS_pcie_clk"  = PERIOD "TNM_pcie_clk"  8.0 ns  HIGH 50% PRIORITY 100;
+# TIMESPEC "TS_mgt_clk_1" = PERIOD "TNM_mgt_clk_1" 3.255   HIGH 50% PRIORITY 200;
+# TIMESPEC "TS_mgt_clk_2" = PERIOD "TNM_mgt_clk_2" 3.255   HIGH 50% PRIORITY 200;
+# TIMESPEC "TS_qdr_clk"   = PERIOD "TNM_qdr_clk"   10 ns   HIGH 50% PRIORITY 200;
+# TIMESPEC "TS_pcie_125"  = PERIOD "TNM_pcie_125"  8.0 ns  HIGH 50% PRIORITY 100;
+# TIMESPEC "TS_pcie_out"  = PERIOD "TNM_pcie_out"  8.0 ns  HIGH 50% PRIORITY 10;
+
+# TIMESPEC "TS_exception1" = FROM "TNM_sys_clk"  TO "TNM_math_clk" TIG;
+# TIMESPEC "TS_exception2" = FROM "TNM_math_clk" TO "TNM_sys_clk"  TIG;
+# TIMESPEC "TS_exception3" = FROM "TNM_sys_clk"  TO "TNM_pcie_125" TIG;
+# TIMESPEC "TS_exception4" = FROM "TNM_pcie_125" TO "TNM_sys_clk"  TIG;
+# TIMESPEC "TS_exception5" = FROM "TNM_sys_clk"  TO "TNM_qdr_clk"  TIG;
+
+#NET "rio_mgt_block_i/gth_connect_fifo_0_inst/sys_gth_link" TIG;
+#NET "rio_mgt_block_i/gth_connect_fifo_1_inst/sys_gth_link" TIG;
+#NET "rio_mgt_block_i/gth_connect_fifo_2_inst/sys_gth_link" TIG;
+#NET "rio_mgt_block_i/gth_connect_fifo_3_inst_0/sys_gth_link" TIG;
+#NET "correlator_block_i/SIM_USE_CORR_GEN.BASE_ELEMENT_MATRIX_i/sm_value[*]" TIG;
+
+
+# MGT 
+# Location Constraints
+#NET RX1P_IN(0)          LOC = N3; # SER_RX0_P
+#NET RX1N_IN(0)          LOC = N4; # SER_RX0_N
+#NET TX1P_OUT(0)         LOC = M1; # SER_TX0_P
+#NET TX1N_OUT(0)         LOC = M2; # SER_TX0_N
+#
+#NET RX1P_IN(1)          LOC = L3; # SER_RX1_P
+#NET RX1N_IN(1)          LOC = L4; # SER_RX1_N
+#NET TX1P_OUT(1)         LOC = K1; # SER_TX1_P
+#NET TX1N_OUT(1)         LOC = K2; # SER_TX1_N
+#
+#NET RX2P_IN(0)          LOC = K5; # SER_RX2_P
+#NET RX2N_IN(0)          LOC = K6; # SER_RX2_N
+#NET TX2P_OUT(0)         LOC = H1; # SER_TX2_P
+#NET TX2N_OUT(0)         LOC = H2; # SER_TX2_N
+#
+#NET RX2P_IN(1)          LOC = J3; # SER_RX3_P
+#NET RX2N_IN(1)          LOC = J4; # SER_RX3_N
+#NET TX2P_OUT(1)         LOC = F1; # SER_TX3_P
+#NET TX2N_OUT(1)         LOC = F2; # SER_TX3_N
+
+# # PCIe
+# # Location Constraints
+ NET pci_exp_rxp(0)      LOC = AP5; # IPASS_RX0_P
+ NET pci_exp_rxn(0)      LOC = AP6; # IPASS_RX0_N
+ NET pci_exp_txp(0)      LOC = AP1; # IPASS_TX0_P
+ NET pci_exp_txn(0)      LOC = AP2; # IPASS_TX0_N
+
+ NET pci_exp_rxp(1)      LOC = AM5; # IPASS_RX1_P
+ NET pci_exp_rxn(1)      LOC = AM6; # IPASS_RX1_N
+ NET pci_exp_txp(1)      LOC = AN3; # IPASS_TX1_P
+ NET pci_exp_txn(1)      LOC = AN4; # IPASS_TX1_N
+
+ NET pci_exp_rxp(2)      LOC = AL3; # IPASS_RX2_P
+ NET pci_exp_rxn(2)      LOC = AL4; # IPASS_RX2_N
+ NET pci_exp_txp(2)      LOC = AM1; # IPASS_TX2_P
+ NET pci_exp_txn(2)      LOC = AM2; # IPASS_TX2_N
+
+ NET pci_exp_rxp(3)      LOC = AJ3; # IPASS_RX3_P
+ NET pci_exp_rxn(3)      LOC = AJ4; # IPASS_RX3_N
+ NET pci_exp_txp(3)      LOC = AK1; # IPASS_TX3_P
+ NET pci_exp_txn(3)      LOC = AK2; # IPASS_TX3_N
+
+# # # PCI Express Block placement. This constraint selects the PCI Express
+# # INST "*/make4Lanes.pcieCore/pcie_2_0_i/pcie_block_i" LOC = PCIE_X0Y0;
+# # #INST "*/make4Lanes.pcieCore/pcie_clocking_i/mmcm_adv_i" LOC = MMCM_ADV_X0Y3;
+# # INST "*/make4Lanes.pcieCore/pcie_2_0_i/pcie_bram_i/pcie_brams_rx/brams[1].ram/use_ramb36*.ramb36*" LOC = RAMB36_X13Y12;
+# # INST "*/make4Lanes.pcieCore/pcie_2_0_i/pcie_bram_i/pcie_brams_rx/brams[0].ram/use_ramb36*.ramb36*" LOC = RAMB36_X13Y10;
+# # INST "*/make4Lanes.pcieCore/pcie_2_0_i/pcie_bram_i/pcie_brams_tx/brams[0].ram/use_ramb36*.ramb36*" LOC = RAMB36_X13Y11;
+# # INST "*/make4Lanes.pcieCore/pcie_2_0_i/pcie_bram_i/pcie_brams_tx/brams[1].ram/use_ramb36*.ramb36*" LOC = RAMB36_X13Y9;
+# # # RESET TIG
+# # PIN "*/make4Lanes.pcieCore/trn_reset_n_int_i.CLR" TIG;
+# # PIN "*/make4Lanes.pcieCore/trn_reset_n_i.CLR" TIG;
+# # PIN "*/make4Lanes.pcieCore/pcie_clocking_i/mmcm_adv_i.RST" TIG;
+
+# # Parallel Flash
+# # Location Constraints
+# NET Linear_Flash_address<0>     LOC = AL8;  # 1PF_A0
+# NET Linear_Flash_address<1>     LOC = AK8;  # 1PF_A1
+# NET Linear_Flash_address<2>     LOC = AC9;  # 1PF_A2
+# NET Linear_Flash_address<3>     LOC = AD10; # 1PF_A3
+# NET Linear_Flash_address<4>     LOC = C8;   # 1PF_A4
+# NET Linear_Flash_address<5>     LOC = B8;   # 1PF_A5
+# NET Linear_Flash_address<6>     LOC = E9;   # 1PF_A6
+# NET Linear_Flash_address<7>     LOC = E8;   # 1PF_A7
+# NET Linear_Flash_address<8>     LOC = A8;   # 1PF_A8
+# NET Linear_Flash_address<9>     LOC = A9;   # 1PF_A9
+# NET Linear_Flash_address<10>    LOC = D9;   # 1PF_A10
+# NET Linear_Flash_address<11>    LOC = C9;   # 1PF_A11
+# NET Linear_Flash_address<12>    LOC = D10;  # 1PF_A12
+# NET Linear_Flash_address<13>    LOC = C10;  # 1PF_A13
+# NET Linear_Flash_address<14>    LOC = F10;  # 1PF_A14
+# NET Linear_Flash_address<15>    LOC = F9;   # 1PF_A15
+# NET Linear_Flash_address<16>    LOC = AH8;  # 1PF_A16
+# NET Linear_Flash_address<17>    LOC = AG8;  # 1PF_A17
+# NET Linear_Flash_address<18>    LOC = AP9;  # 1PF_A18
+# NET Linear_Flash_address<19>    LOC = AN9;  # 1PF_A19
+# NET Linear_Flash_address<20>    LOC = AF10; # 1PF_A20
+# NET Linear_Flash_address<21>    LOC = AF9;  # 1PF_A21
+# NET Linear_Flash_address<22>    LOC = AL9;  # 1PF_A22
+# NET Linear_Flash_address<*>     IOSTANDARD = LVCMOS25;
+
+# NET Linear_Flash_ce_n           LOC = Y24  | IOSTANDARD = LVCMOS25; # 1PF_E
+# NET Linear_Flash_oe_n           LOC = AA24 | IOSTANDARD = LVCMOS25; # 1PF_G
+# NET Linear_Flash_we_n           LOC = AF23 | IOSTANDARD = LVCMOS25; # 1PF_W
+# NET Linear_Flash_ld_n           LOC = AC23 | IOSTANDARD = LVCMOS25; # 1PF_L
+
+# NET Linear_Flash_data<0>        LOC = AF24; # 1PF_D0
+# NET Linear_Flash_data<1>        LOC = AF25; # 1PF_D1
+# NET Linear_Flash_data<2>        LOC = W24;  # 1PF_D2
+# NET Linear_Flash_data<3>        LOC = V24;  # 1PF_D3
+# NET Linear_Flash_data<4>        LOC = H24;  # 1PF_D4
+# NET Linear_Flash_data<5>        LOC = H25;  # 1PF_D5
+# NET Linear_Flash_data<6>        LOC = P24;  # 1PF_D6
+# NET Linear_Flash_data<7>        LOC = R24;  # 1PF_D7
+# NET Linear_Flash_data<8>        LOC = G23;  # 1PF_D8
+# NET Linear_Flash_data<9>        LOC = H23;  # 1PF_D9
+# NET Linear_Flash_data<10>       LOC = N24;  # 1PF_D10
+# NET Linear_Flash_data<11>       LOC = N23;  # 1PF_D11
+# NET Linear_Flash_data<12>       LOC = F23;  # 1PF_D12
+# NET Linear_Flash_data<13>       LOC = F24;  # 1PF_D13
+# NET Linear_Flash_data<14>       LOC = L24;  # 1PF_D14
+# NET Linear_Flash_data<15>       LOC = M23;  # 1PF_D15
+# NET Linear_Flash_data<*>        IOSTANDARD = LVCMOS25;
+# NET Linear_Flash_data<*>        SLEW = FAST;
+# NET Linear_Flash_data<*>        DRIVE = 12;
+
+# # QDRIIPLUS_SRAM
+# # I/O STANDARDS
+# NET  "qdrii_d[*]"                              IOSTANDARD = HSTL_I;
+# NET  "qdrii_q[*]"                              IOSTANDARD = HSTL_I_DCI;
+# NET  "qdrii_sa[*]"                             IOSTANDARD = HSTL_I;
+# NET  "qdrii_w_n"                               IOSTANDARD = HSTL_I;
+# NET  "qdrii_r_n"                               IOSTANDARD = HSTL_I;
+# NET  "qdrii_bw_n[*]"                           IOSTANDARD = HSTL_I;
+# NET  "qdrii_cq_p[*]"                           IOSTANDARD = HSTL_I_DCI;
+# NET  "qdrii_cq_n[*]"                           IOSTANDARD = HSTL_I_DCI;
+# NET  "qdrii_c_p[*]"                            IOSTANDARD = HSTL_I;
+# NET  "qdrii_c_n[*]"                            IOSTANDARD = HSTL_I;
+# NET  "qdrii_k_p[*]"                            IOSTANDARD = HSTL_I;
+# NET  "qdrii_k_n[*]"                            IOSTANDARD = HSTL_I;
+# NET  "qdrii_dll_off_n"                         IOSTANDARD = HSTL_I;
+
+# # Location Constraints
+# NET  "qdrii_d[0]"                               LOC = "AH27" ;          #Bank 23
+# NET  "qdrii_d[1]"                               LOC = "AJ26" ;          #Bank 23
+# NET  "qdrii_d[2]"                               LOC = "AJ25" ;          #Bank 23
+# NET  "qdrii_d[3]"                               LOC = "AH24" ;          #Bank 23
+# NET  "qdrii_d[4]"                               LOC = "AG25" ;          #Bank 23
+# NET  "qdrii_d[5]"                               LOC = "AK29" ;          #Bank 23
+# NET  "qdrii_d[6]"                               LOC = "AK28" ;          #Bank 23
+# NET  "qdrii_d[7]"                               LOC = "AH25" ;          #Bank 23
+# NET  "qdrii_d[8]"                               LOC = "AN24" ;          #Bank 23
+# NET  "qdrii_d[9]"                               LOC = "AL28" ;          #Bank 23
+# NET  "qdrii_d[10]"                              LOC = "AN29" ;          #Bank 23
+# NET  "qdrii_d[11]"                              LOC = "AP29" ;          #Bank 23
+# NET  "qdrii_d[12]"                              LOC = "AL29" ;          #Bank 23
+# NET  "qdrii_d[13]"                              LOC = "AM30" ;          #Bank 23
+# NET  "qdrii_d[14]"                              LOC = "AP30" ;          #Bank 23
+# NET  "qdrii_d[15]"                              LOC = "AN30" ;          #Bank 23
+# NET  "qdrii_d[16]"                              LOC = "AP31" ;          #Bank 23
+# NET  "qdrii_d[17]"                              LOC = "AN27" ;          #Bank 23
+# NET  "qdrii_q[0]"                               LOC = "AD17" ;          #Bank 32
+# NET  "qdrii_q[1]"                               LOC = "AD16" ;          #Bank 32
+# NET  "qdrii_q[2]"                               LOC = "AF15" ;          #Bank 32
+# NET  "qdrii_q[3]"                               LOC = "AJ17" ;          #Bank 32
+# NET  "qdrii_q[4]"                               LOC = "AN17" ;          #Bank 32
+# NET  "qdrii_q[5]"                               LOC = "AJ16" ;          #Bank 32
+# NET  "qdrii_q[6]"                               LOC = "AC17" ;          #Bank 32
+# NET  "qdrii_q[7]"                               LOC = "AG16" ;          #Bank 32
+# NET  "qdrii_q[8]"                               LOC = "AK18" ;          #Bank 32
+# NET  "qdrii_q[9]"                               LOC = "AD15" ;          #Bank 32
+# NET  "qdrii_q[10]"                              LOC = "AG15" ;          #Bank 32
+# NET  "qdrii_q[11]"                              LOC = "AH15" ;          #Bank 32
+# NET  "qdrii_q[12]"                              LOC = "AJ15" ;          #Bank 32
+# NET  "qdrii_q[13]"                              LOC = "AP16" ;          #Bank 32
+# NET  "qdrii_q[14]"                              LOC = "AP17" ;          #Bank 32
+# NET  "qdrii_q[15]"                              LOC = "AM17" ;          #Bank 32
+# NET  "qdrii_q[16]"                              LOC = "AK17" ;          #Bank 32
+# NET  "qdrii_q[17]"                              LOC = "AJ19" ;          #Bank 32
+# NET  "qdrii_sa[20]"                             LOC = "AH22" ;          #Bank 22
+# NET  "qdrii_sa[19]"                             LOC = "AN20" ;          #Bank 22
+# NET  "qdrii_sa[18]"                             LOC = "AF21" ;          #Bank 22
+# NET  "qdrii_sa[17]"                             LOC = "AP22" ;          #Bank 22
+# NET  "qdrii_sa[16]"                             LOC = "AP21" ;          #Bank 22
+# NET  "qdrii_sa[15]"                             LOC = "AK21" ;          #Bank 22
+# NET  "qdrii_sa[14]"                             LOC = "AJ22" ;          #Bank 22
+# NET  "qdrii_sa[13]"                             LOC = "AD19" ;          #Bank 22
+# NET  "qdrii_sa[12]"                             LOC = "AL21" ;          #Bank 22
+# NET  "qdrii_sa[11]"                             LOC = "AM20" ;          #Bank 22
+# NET  "qdrii_sa[10]"                             LOC = "AG21" ;          #Bank 22
+# NET  "qdrii_sa[9]"                              LOC = "AK22" ;          #Bank 22
+# NET  "qdrii_sa[8]"                              LOC = "AJ21" ;          #Bank 22
+# NET  "qdrii_sa[7]"                              LOC = "AE19" ;          #Bank 22
+# NET  "qdrii_sa[6]"                              LOC = "AN19" ;          #Bank 22
+# NET  "qdrii_sa[5]"                              LOC = "AL20" ;          #Bank 22
+# NET  "qdrii_sa[4]"                              LOC = "AF19" ;          #Bank 22
+# NET  "qdrii_sa[3]"                              LOC = "AK19" ;          #Bank 22
+# NET  "qdrii_sa[2]"                              LOC = "AN18" ;          #Bank 22
+# NET  "qdrii_sa[1]"                              LOC = "AM18" ;          #Bank 22
+# NET  "qdrii_sa[0]"                              LOC = "AL19" ;          #Bank 22
+# NET  "qdrii_w_n"                                LOC = "AP19" ;          #Bank 22
+# NET  "qdrii_r_n"                                LOC = "AL18" ;          #Bank 22
+# NET  "qdrii_bw_n[0]"                            LOC = "AG26" ;          #Bank 23
+# NET  "qdrii_bw_n[1]"                            LOC = "AM28" ;          #Bank 23
+# NET  "qdrii_cq_p[0]"                            LOC = "AE16" ;          #Bank 32
+# NET  "qdrii_cq_n[0]"                            LOC = "AC15" ;          #Bank 32
+# NET  "qdrii_c_p[0]"                             LOC = "AK27" ;          #Bank 23
+# NET  "qdrii_c_n[0]"                             LOC = "AJ27" ;          #Bank 23
+# NET  "qdrii_k_p[0]"                             LOC = "AJ20" ;          #Bank 22
+# NET  "qdrii_k_n[0]"                             LOC = "AH20" ;          #Bank 22
+# NET  "qdrii_dll_off_n"                          LOC = "AP20" ;          #Bank 22
+
+# # QDR Block MMCM placement
+# INST "qdr_block_i/mig_qdr_i/u_infrastructure/u_mmcm_gen"      LOC = "MMCM_ADV_X0Y0"; #Banks 12, 22, 32
